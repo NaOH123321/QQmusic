@@ -6,7 +6,9 @@ import {
   AfterContentInit,
   Input,
   Output,
-  EventEmitter
+  EventEmitter,
+  DoCheck,
+  OnDestroy
 } from '@angular/core';
 import BScroll from 'better-scroll';
 
@@ -15,7 +17,8 @@ import BScroll from 'better-scroll';
   templateUrl: './scroll.component.html',
   styleUrls: ['./scroll.component.scss']
 })
-export class ScrollComponent implements OnInit, AfterContentInit {
+export class ScrollComponent
+  implements OnInit, AfterContentInit, DoCheck, OnDestroy {
   scroll: BScroll;
 
   @ViewChild('scrollContent', { static: true })
@@ -24,27 +27,39 @@ export class ScrollComponent implements OnInit, AfterContentInit {
   pullDownStyle = '';
 
   isPullUpLoad = false;
-  pullupText = 'asdsasds';
 
   beforePullDown = true;
   isPullDown = false;
-  pullDownText = 'ggggggggggg';
 
+  pullUpDirty = true;
+
+  @Input()
+  update = false;
   @Input()
   pullDownRefresh = false;
   @Input()
   pullUpLoad = false;
   @Output()
-  scrollFun = new EventEmitter();
-  @Output()
   pullingDown = new EventEmitter();
   @Output()
   pullingUp = new EventEmitter();
 
-  // @Output()
-  // pullingUp = new EventEmitter();
-
   constructor() {}
+
+  pullupTextDisplay() {
+    const moreText = '上拉加载更多';
+    const noMoreText = '没有更多数据了';
+
+    if (this.pullUpDirty) {
+      return moreText;
+    }
+    return noMoreText;
+  }
+  pullDownTextDisplay(): string {
+    if (this.pullDownRefresh) {
+      return '下拉刷新';
+    }
+  }
 
   ngOnInit(): void {}
 
@@ -53,9 +68,11 @@ export class ScrollComponent implements OnInit, AfterContentInit {
   }
 
   ngDoCheck(): void {
-    this.forceUpdate();
-    if (this.pullDownStyle === '-50px') {
-      this.beforePullDown = true;
+    if (this.update) {
+      this.forceUpdate(true);
+      if (this.pullDownStyle === '-50px') {
+        this.beforePullDown = true;
+      }
     }
   }
 
@@ -84,18 +101,11 @@ export class ScrollComponent implements OnInit, AfterContentInit {
       this.beforePullDown = false;
       this.isPullDown = true;
       this.pullingDown.emit();
-      // this.scroll.finishPullDown();
     });
 
     this.scroll.on('scroll', pos => {
-      const position = (pos.y - 50 >= 20 && 20) || pos.y - 50;
-      // let position = pos.y-50 >= 20 && 20 || pos.y-50;
+      const position = Math.min(pos.y - 50, 20);
       this.pullDownStyle = `${position}px`;
-
-      // if (this.beforePullDown) {
-      //   // this.bubbleY = Math.max(0, pos.y + this.pullDownInitTop);
-      //   this.pullDownStyle = `top:${Math.min(pos.y + -50, 10)}px`;
-      // }
     });
   }
 
@@ -103,12 +113,12 @@ export class ScrollComponent implements OnInit, AfterContentInit {
     this.scroll.on('pullingUp', () => {
       this.isPullUpLoad = true;
       this.pullingUp.emit();
-      // this.scroll.finishPullUp();
     });
   }
 
-  forceUpdate() {
+  forceUpdate(dirty: boolean) {
     if (this.pullUpLoad && this.isPullUpLoad) {
+      this.pullUpDirty = dirty;
       this.isPullUpLoad = false;
       this.scroll.finishPullUp();
       this.scroll.refresh();
@@ -121,4 +131,6 @@ export class ScrollComponent implements OnInit, AfterContentInit {
       }, 500);
     }
   }
+
+  ngOnDestroy(): void {}
 }

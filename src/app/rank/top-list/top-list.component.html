@@ -1,9 +1,9 @@
 <app-scroll
-  pullUpLoad="true"
-  pullDownRefresh="true"
+  [pullUpLoad]="pullUpLoad"
+  [pullDownRefresh]="pullDownRefresh"
+  [update]="update"
   (pullingUp)="pullingUp()"
   (pullingDown)="pullingDown()"
-  (scrollFun)="scroll($event)"
 >
   <div [ngStyle]="{ 'padding-bottom': miniPlayer ? '3.4rem' : 0 }">
     <div class="content_box">

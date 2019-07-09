@@ -2,15 +2,18 @@
   <div class="list-wrapper">
     <div class="pulldown-wrapper" [ngStyle]="{ top: pullDownStyle }">
       <div class="before-trigger" *ngIf="beforePullDown; else elsePullDown">
-        {{ pullDownText }}
+        {{ pullDownTextDisplay() }}
       </div>
       <ng-template #elsePullDown>
         <div class="after-trigger">
           <i
             nz-icon
-            nzType="loading"
+            [nzType]="'loading-3-quarters'"
+            nzTheme="outline"
+            nzSpin="true"
             *ngIf="isPullDown; else elsePullDownSuccess"
           ></i>
+
           <ng-template #elsePullDownSuccess>
             刷新成功
           </ng-template>
@@ -18,13 +21,18 @@
       </ng-template>
     </div>
     <ng-content></ng-content>
-    <div class="pullup-wrapper">
+    <div class="pullup-wrapper" *ngIf="pullUpLoad">
       <div class="before-trigger" *ngIf="!isPullUpLoad; else elsePullUpLoad">
-        {{ pullupText }}
+        {{ pullupTextDisplay() }}
       </div>
       <ng-template #elsePullUpLoad>
         <div class="after-trigger">
-          <i nz-icon nzType="loading"></i>
+          <i
+            nz-icon
+            [nzType]="'loading-3-quarters'"
+            nzTheme="outline"
+            nzSpin="true"
+          ></i>
         </div>
       </ng-template>
     </div>

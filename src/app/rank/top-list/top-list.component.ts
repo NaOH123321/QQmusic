@@ -7,6 +7,16 @@ import { TopSongItem } from '../../domain';
   styleUrls: ['./top-list.component.scss']
 })
 export class TopListComponent implements OnInit {
+  // pullDownStyle = '';
+
+  // isPullUpLoad = false;
+  // pullupText = 'asdsasds';
+
+  // beforePullDown = true;
+  // isPullDown = false;
+  // pullDownText = 'ggggggggggg';
+
+  constructor() {}
   topSongListInit: TopSongItem[] = [
     {
       id: 1,
@@ -134,34 +144,17 @@ export class TopListComponent implements OnInit {
 
   i = 0;
 
-  // pullDownStyle = '';
-
-  // isPullUpLoad = false;
-  // pullupText = 'asdsasds';
-
-  // beforePullDown = true;
-  // isPullDown = false;
-  // pullDownText = 'ggggggggggg';
-
-  constructor() {}
+  update = false;
+  pullDownRefresh = true;
+  pullUpLoad = true;
 
   ngOnInit() {
     this.topSongList = this.topSongListInit;
   }
 
-  scroll(pos) {
-    // if (this.beforePullDown) {
-    //   this.pullDownStyle = `${Math.min(pos.y + -50, 10)}px`;
-    // } else {
-    //   this.pullDownStyle = `-50px`;
-    // }
-  }
-
   pullingUp(): void {
-    // this.isPullUpLoad = true;
+    this.update = false;
     setTimeout(() => {
-      // this.isPullUpLoad = false;
-
       this.topSongList.push({
         id: 1,
         picUrl: '',
@@ -170,18 +163,21 @@ export class TopListComponent implements OnInit {
         durationTime: 86846
       });
       this.i++;
+      this.update = true;
+
+      if (this.i === 5) {
+        this.pullUpLoad = false;
+      }
       console.log('sssssssssssss');
-    }, 3000);
+    }, 1000);
   }
 
   pullingDown(): void {
-    // this.beforePullDown = false;
-    // this.isPullDown = true;
+    this.update = false;
     setTimeout(() => {
-      // this.beforePullDown = true;
-      // this.isPullDown = false;
       this.topSongList = [];
       this.topSongList = this.topSongListInit;
+      this.update = true;
       console.log('rrrrrrrrrrrrrrr');
     }, 3000);
   }
