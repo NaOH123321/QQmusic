@@ -1,0 +1,40 @@
+@import '../../constants';
+
+.big_card_box {
+  display: flex;
+  background-color: $white_color;
+  margin-top: $s12px;
+
+  .image_box {
+    width: 6rem;
+    height: 6rem;
+
+    img {
+      width: 100%;
+    }
+  }
+
+  .title_text_box {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: $s12px;
+    position: relative;
+
+    .text_name {
+      font-size: $s12px;
+    }
+    .name {
+      font-weight: bold;
+    }
+    .top_number {
+      position: absolute;
+      top: 50%;
+      right: 1.4rem;
+      margin-top: -0.7rem;
+      color: $red_color;
+      font-size: $s18px;
+    }
+  }
+}

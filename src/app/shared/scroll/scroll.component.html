@@ -1,0 +1,32 @@
+<div #scrollContent class="scroll_box">
+  <div class="list-wrapper">
+    <div class="pulldown-wrapper" [ngStyle]="{ top: pullDownStyle }">
+      <div class="before-trigger" *ngIf="beforePullDown; else elsePullDown">
+        {{ pullDownText }}
+      </div>
+      <ng-template #elsePullDown>
+        <div class="after-trigger">
+          <i
+            nz-icon
+            nzType="loading"
+            *ngIf="isPullDown; else elsePullDownSuccess"
+          ></i>
+          <ng-template #elsePullDownSuccess>
+            刷新成功
+          </ng-template>
+        </div>
+      </ng-template>
+    </div>
+    <ng-content></ng-content>
+    <div class="pullup-wrapper">
+      <div class="before-trigger" *ngIf="!isPullUpLoad; else elsePullUpLoad">
+        {{ pullupText }}
+      </div>
+      <ng-template #elsePullUpLoad>
+        <div class="after-trigger">
+          <i nz-icon nzType="loading"></i>
+        </div>
+      </ng-template>
+    </div>
+  </div>
+</div>

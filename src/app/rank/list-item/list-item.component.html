@@ -1,0 +1,15 @@
+<div class="big_card_box">
+  <div class="image_box">
+    <img [src]="topSongListItem.picUrl" />
+  </div>
+  <div class="title_text_box">
+    <p class="name">{{ topSongListItem.name }}</p>
+    <p><span class="text_name">歌手</span>- {{ topSongListItem.singer }}</p>
+    <p>
+      <span class="text_name">{{
+        topSongListItem.durationTime / 1000 | formatDate
+      }}</span>
+    </p>
+    <div *ngIf="rank < 11" class="top_number">{{ rank }}</div>
+  </div>
+</div>
