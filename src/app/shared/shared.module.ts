@@ -1,14 +1,16 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgZorroAntdModule } from 'ng-zorro-antd';
-import { ScrollComponent } from './scroll/scroll.component';
+import { ScrollComponent, NavbarComponent } from './components';
 import { PipesModule } from '../pipes/pipes.module';
 
 @NgModule({
-  declarations: [ScrollComponent],
+  declarations: [ScrollComponent, NavbarComponent],
   imports: [
     CommonModule,
+    RouterModule,
     FormsModule,
     ReactiveFormsModule,
     PipesModule,
@@ -16,12 +18,15 @@ import { PipesModule } from '../pipes/pipes.module';
   ],
   exports: [
     CommonModule,
+    RouterModule,
     FormsModule,
     ReactiveFormsModule,
     PipesModule,
     NgZorroAntdModule,
 
-    ScrollComponent
-  ]
+    ScrollComponent,
+    NavbarComponent
+  ],
+  entryComponents: []
 })
 export class SharedModule {}

@@ -10,7 +10,24 @@ const routes: Routes = [
   {
     path: 'rank',
     pathMatch: 'full',
-    loadChildren: () => import('./rank/rank.module').then(m => m.RankModule),
+    loadChildren: () => import('./rank/rank.module').then(m => m.RankModule)
+  },
+  {
+    path: 'hot',
+    pathMatch: 'full',
+    loadChildren: () => import('./hot/hot.module').then(m => m.HotModule)
+  },
+  {
+    path: 'search',
+    pathMatch: 'full',
+    loadChildren: () =>
+      import('./search/search.module').then(m => m.SearchModule)
+  },
+  {
+    path: 'player',
+    pathMatch: 'full',
+    loadChildren: () =>
+      import('./player/player.module').then(m => m.PlayerModule)
   }
 ];
 

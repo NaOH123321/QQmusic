@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { TopSongItem } from '../../domain';
+import { Route, RouterLink, Router } from '@angular/router';
 
 @Component({
   selector: 'app-list-item',
@@ -11,7 +12,11 @@ export class ListItemComponent implements OnInit {
   topSongListItem: TopSongItem;
   @Input()
   rank: number;
-  constructor() {}
+  constructor(private router: Router) {}
 
   ngOnInit() {}
+
+  openPlayer() {
+    this.router.navigateByUrl('/player');
+  }
 }

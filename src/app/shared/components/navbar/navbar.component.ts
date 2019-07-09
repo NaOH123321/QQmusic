@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { NavBarItem } from '../domain';
+import { NavBarItem } from '../../../domain';
 
 @Component({
   selector: 'app-navbar',
@@ -10,7 +10,7 @@ export class NavbarComponent implements OnInit {
   items: NavBarItem[] = [
     {
       text: '推荐',
-      routerLink: '#',
+      routerLink: '/hot',
       id: 10001
     },
     {
@@ -20,7 +20,7 @@ export class NavbarComponent implements OnInit {
     },
     {
       text: '搜索',
-      routerLink: '#',
+      routerLink: '/search',
       id: 10003
     }
   ];
