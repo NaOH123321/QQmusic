@@ -7,7 +7,7 @@
     <p><span class="text_name">歌手</span>- {{ topSongListItem.singer }}</p>
     <p>
       <span class="text_name">{{
-        topSongListItem.durationTime / 1000 | formatDate
+        topSongListItem.durationTime | formatDate
       }}</span>
     </p>
     <div *ngIf="rank < 11" class="top_number">{{ rank }}</div>

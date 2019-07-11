@@ -1,5 +1,20 @@
 @import '../constants';
 
+.ant-slider-track{
+  background-color: greenyellow;
+}
+
+
+.visible{
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.invisible{
+  opacity: 0;
+  transform: translateY(-100);
+}
+
 // 播放页面
 .player_control {
   position: fixed;
@@ -7,10 +22,10 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: $red_color;
+  background-color: $white_color;
   z-index: 12;
-  opacity: 1;
-  transform: translateY(0);
+  // opacity: 1;
+  // transform: translateY(0);
 
   .player_background {
     position: absolute;

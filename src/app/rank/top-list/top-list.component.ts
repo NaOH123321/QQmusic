@@ -20,11 +20,10 @@ export class TopListComponent implements OnInit {
   topSongListInit: TopSongItem[] = [
     {
       id: 1,
-      picUrl: '',
-      name: '撒的发ssss',
-      singer: '撒的发',
-      durationTime: 2001,
-      rank: 1
+      picUrl: 'https://y.gtimg.cn/music/photo_new/T002R300x300M000000DMpJ73yeITP.jpg',
+      name: '木偶人',
+      singer: '薛之谦',
+      durationTime: 286,
     },
     {
       id: 2,
