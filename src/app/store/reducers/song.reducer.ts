@@ -9,7 +9,7 @@ export interface State extends EntityState<Song> {
 }
 
 function selectSongId(a: Song): string {
-  return a.id;
+  return a.songId;
 }
 
 export const adapter: EntityAdapter<Song> = createEntityAdapter<Song>({

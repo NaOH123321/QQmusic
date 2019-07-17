@@ -5,7 +5,8 @@
 export const environment = {
   production: false,
   // baseUrl: 'http://localhost:5000/api',
-  baseUrl: 'https://qqmusicapi.azurewebsites.net/api'
+  // baseUrl: 'https://qqmusicapi.azurewebsites.net/api',
+  baseUrl: 'https://qqmusicapi.chinacloudsites.cn/api'
 };
 
 /*

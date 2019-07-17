@@ -110,11 +110,15 @@ export class TopListComponent implements OnInit {
   }
 
   handleSelectSong(song: Song) {
-    this.store$.dispatch(
-      select({
-        payload: song.id
-      })
-    );
-    this.router.navigate(['/player']);
+    if (song.playInfo.vkey != null && song.playInfo.vkey !== '') {
+      this.store$.dispatch(
+        select({
+          payload: song.songId
+        })
+      );
+      this.router.navigate(['/player']);
+    } else {
+      console.log('不能播放');
+    }
   }
 }

@@ -5,7 +5,7 @@ GET {{baseUrl}}/songs?pageIndex=4&pageSize=5 HTTP/1.1
 ###
 @url = https://qqmusicapi.azurewebsites.net/api
 
-GET {{url}}/songs?pageIndex=4&pageSize=5 HTTP/1.1
+GET {{url}}/songs?pageIndex=0 HTTP/1.1
 
 
 ###

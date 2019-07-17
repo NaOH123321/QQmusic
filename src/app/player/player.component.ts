@@ -66,11 +66,17 @@ export class PlayerComponent implements OnInit, AfterViewInit {
 
     this.song$ = this.store$.pipe(select(fromRoot.getSelectedSong));
 
-    this.song$.subscribe(val => (this.sda = val.playInfo.url));
+    this.song$.subscribe(val => {
+      if (val) {
+        this.sda = val.playInfo.url;
+        console.log(val);
+        console.log(this.sda);
+      }
+    });
   }
 
   ngAfterViewInit(): void {
-    console.log(this.audioElement.nativeElement.src);
+    // console.log(this.audioElement.nativeElement.src);
     const audio = this.audioElement.nativeElement;
     audio.addEventListener(
       'canplay',
