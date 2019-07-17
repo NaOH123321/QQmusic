@@ -14,7 +14,6 @@ const routes: Routes = [
   },
   {
     path: 'hot',
-    pathMatch: 'full',
     loadChildren: () => import('./hot/hot.module').then(m => m.HotModule)
   },
   {

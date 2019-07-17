@@ -1,6 +1,5 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { TopSongItem } from '../../domain';
-import { Route, RouterLink, Router } from '@angular/router';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Song, Singer } from '../../domain';
 
 @Component({
   selector: 'app-list-item',
@@ -9,14 +8,25 @@ import { Route, RouterLink, Router } from '@angular/router';
 })
 export class ListItemComponent implements OnInit {
   @Input()
-  topSongListItem: TopSongItem;
-  @Input()
-  rank: number;
-  constructor(private router: Router) {}
+  topSongListItem: Song;
 
-  ngOnInit() {}
+  @Output()
+  selectSong = new EventEmitter<Song>();
 
-  openPlayer() {
-    this.router.navigateByUrl('/player');
+  constructor() {}
+
+  ngOnInit() {
+    // console.log(this.topSongListItem);
+  }
+
+  onSelectSong() {
+    this.selectSong.emit(this.topSongListItem);
+  }
+
+  public get singers(): string {
+    if (this.topSongListItem.singers != null) {
+      return this.topSongListItem.singers.map(s => s.name).join('/');
+    }
+    return '';
   }
 }

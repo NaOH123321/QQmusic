@@ -1,15 +1,17 @@
-<div class="big_card_box" (tap)="openPlayer()">
+<div class="big_card_box" (tap)="onSelectSong()">
   <div class="image_box">
-    <img [src]="topSongListItem.picUrl" />
+    <img [src]="topSongListItem.albumPic" />
   </div>
   <div class="title_text_box">
-    <p class="name">{{ topSongListItem.name }}</p>
-    <p><span class="text_name">歌手</span>- {{ topSongListItem.singer }}</p>
+    <p class="name">{{ topSongListItem.songName }}</p>
+    <p><span class="text_name">歌手</span>- {{ singers }}</p>
     <p>
       <span class="text_name">{{
         topSongListItem.durationTime | formatDate
       }}</span>
     </p>
-    <div *ngIf="rank < 11" class="top_number">{{ rank }}</div>
+    <div *ngIf="topSongListItem.rank < 4" class="top_number">
+      {{ topSongListItem.rank }}
+    </div>
   </div>
 </div>

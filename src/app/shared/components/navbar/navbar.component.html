@@ -1,6 +1,9 @@
 <ul class="function_button">
-  <li *ngFor="let item of items">
-    <a [routerLink]="[item.routerLink]" routerLinkActive="active">
+  <li *ngFor="let item of items; let i = index">
+    <a
+      (click)="handleNavigate(item)"
+      [ngClass]="{ active: i === (selected$ | async) }"
+    >
       <span>{{ item.text }}</span>
     </a>
   </li>

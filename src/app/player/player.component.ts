@@ -12,7 +12,12 @@ import {
   transition,
   animate
 } from '@angular/animations';
+import { Store, select } from '@ngrx/store';
+import * as fromRoot from '../store/reducers';
 import { interval, Observable, Subscription } from 'rxjs';
+import { Song, Singer } from '../domain';
+import { debug } from '../utils/debug.util';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-player',
@@ -20,34 +25,52 @@ import { interval, Observable, Subscription } from 'rxjs';
   styleUrls: ['./player.component.scss']
 })
 export class PlayerComponent implements OnInit, AfterViewInit {
-  @ViewChild('audioElement', { static: true })
+  @ViewChild('audioElement', { static: false })
   audioElement: ElementRef;
 
-  asda = `https://y.gtimg.cn/music/photo_new/T002R300x300M000${'000DMpJ73yeITP'}.jpg`;
+  song$: Observable<Song>;
 
-  reer = `http://ws.stream.qqmusic.qq.com/${'C400003iHc0e2UIgMC'}.m4a?fromtag=0&guid=126548448&vkey=`;
+  // song: Song = {
+  //   id: '',
+  //   rank: 0,
+  //   albumId: '',
+  //   albumMid: '',
+  //   albumPic: '',
+  //   albumName: '',
+  //   songId: '',
+  //   songMid: '',
+  //   songName: '',
+  //   singers: [],
+  //   durationTime: 0,
+  //   playInfo: null
+  // };
 
-  vkey = `386B45DFED30BE04715545E6B5EBE1A7F9FB5F9824ED6FB490669563FE456FD54094ED906EE931139262D1025C018402B08A31ABBA03F39E`;
+  sda = `http://ws.stream.qqmusic.qq.com/C400000KKcHK4ZYcDo.m4a?fromtag=0&guid=876576457&vkey=35F71C1CFA658235CD4D6BE1BE388CB7B687027B60D7E318E5FDC211D5F11B504F53EDAC8F85AFADE166D6E76D709EF1AA4B8DA55A413EDE`;
 
-  data = {
-    coverUrl: this.asda,
-    name: '木偶人',
-    alia: '薛之谦',
-    durationTime: 286,
-    src: this.reer + this.vkey
-  };
-  // prefix = '?param=400y400&quality=100';
   // currentLineWidth = 0;
 
   interval$: Subscription;
   currentTime = 0; // 单位是秒
-  visiable = true;
+  // visiable = true;
   status = 'pause';
-  constructor() {}
+  constructor(private store$: Store<fromRoot.State>, private router: Router) {}
 
-  ngOnInit() {}
+  getSingers(singers: Singer[]): string {
+    return singers.map(s => s.name).join('/');
+  }
+
+  ngOnInit() {
+    // this.store$
+    //   .pipe(select(fromRoot.getSelectedSong))
+    //   .subscribe(val => (this.song = val));
+
+    this.song$ = this.store$.pipe(select(fromRoot.getSelectedSong));
+
+    this.song$.subscribe(val => (this.sda = val.playInfo.url));
+  }
 
   ngAfterViewInit(): void {
+    console.log(this.audioElement.nativeElement.src);
     const audio = this.audioElement.nativeElement;
     audio.addEventListener(
       'canplay',
@@ -106,7 +129,8 @@ export class PlayerComponent implements OnInit, AfterViewInit {
   }
 
   handlerClosePlayer() {
-    this.visiable = false;
+    // this.visiable = false;
+    this.router.navigate(['/rank']);
   }
 
   handlerPlay() {

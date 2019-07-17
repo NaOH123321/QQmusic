@@ -1,5 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { TopSongItem } from '../../domain';
+import { Song } from '../../domain';
+import { SongService } from '../../services/song.service';
+import { Store } from '@ngrx/store';
+import * as fromRoot from '../../store/reducers';
+import { loadAll, select, loadAllSuccess } from '../../store/actions';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-top-list',
@@ -7,177 +12,109 @@ import { TopSongItem } from '../../domain';
   styleUrls: ['./top-list.component.scss']
 })
 export class TopListComponent implements OnInit {
-  // pullDownStyle = '';
+  constructor(
+    private router: Router,
+    private service: SongService,
+    private store$: Store<fromRoot.State>
+  ) {}
 
-  // isPullUpLoad = false;
-  // pullupText = 'asdsasds';
+  topSongList: Song[] = [];
 
-  // beforePullDown = true;
-  // isPullDown = false;
-  // pullDownText = 'ggggggggggg';
-
-  constructor() {}
-  topSongListInit: TopSongItem[] = [
-    {
-      id: 1,
-      picUrl: 'https://y.gtimg.cn/music/photo_new/T002R300x300M000000DMpJ73yeITP.jpg',
-      name: '木偶人',
-      singer: '薛之谦',
-      durationTime: 286,
-    },
-    {
-      id: 2,
-      picUrl: '',
-      name: 'ffff',
-      singer: 'gdhgfh',
-      durationTime: 4001,
-      rank: 1
-    },
-    {
-      id: 3,
-      picUrl: '',
-      name: 'sdsf',
-      singer: '撒的发',
-      durationTime: 2901,
-      rank: 1
-    },
-    {
-      id: 4,
-      picUrl: '',
-      name: '撒的发ssss',
-      singer: '撒的发',
-      durationTime: 3901,
-      rank: 1
-    },
-    {
-      id: 5,
-      picUrl: '',
-      name: 'hjgh6',
-      singer: '78hjk',
-      durationTime: 4503,
-      rank: 1
-    },
-    {
-      id: 1,
-      picUrl: '',
-      name: '撒的发ssss',
-      singer: '撒的发',
-      durationTime: 2001,
-      rank: 1
-    },
-    {
-      id: 1,
-      picUrl: '',
-      name: '撒的发ssss',
-      singer: '撒的发',
-      durationTime: 2001,
-      rank: 1
-    },
-    {
-      id: 1,
-      picUrl: '',
-      name: '撒的发ssss',
-      singer: '撒的发',
-      durationTime: 2001,
-      rank: 1
-    },
-    {
-      id: 1,
-      picUrl: '',
-      name: '撒的发ssss',
-      singer: '撒的发',
-      durationTime: 2001,
-      rank: 1
-    },
-    {
-      id: 1,
-      picUrl: '',
-      name: '撒的发ssss',
-      singer: '撒的发',
-      durationTime: 2001,
-      rank: 1
-    },
-    {
-      id: 1,
-      picUrl: '',
-      name: '撒的发ssss',
-      singer: '撒的发',
-      durationTime: 2001,
-      rank: 1
-    },
-    {
-      id: 1,
-      picUrl: '',
-      name: '撒的发ssss',
-      singer: '撒的发',
-      durationTime: 2001,
-      rank: 1
-    },
-    {
-      id: 1,
-      picUrl: '',
-      name: '撒的发ssss',
-      singer: '撒的发',
-      durationTime: 2001,
-      rank: 1
-    },
-    {
-      id: 1,
-      picUrl: '',
-      name: '撒的发ssss',
-      singer: '撒的发',
-      durationTime: 2001,
-      rank: 1
-    },
-    {
-      id: 1,
-      picUrl: '',
-      name: '撒的发ssss',
-      singer: '撒的发',
-      durationTime: 2001,
-      rank: 1
-    }
-  ];
-
-  topSongList: TopSongItem[] = [];
-
-  i = 0;
+  pageIndex = 0;
+  pageSize = 10;
+  pageCount = 1;
 
   update = false;
   pullDownRefresh = true;
   pullUpLoad = true;
 
   ngOnInit() {
-    this.topSongList = this.topSongListInit;
+    this.getSongs(true);
+  }
+
+  getSongs(reset: boolean = false) {
+    if (reset) {
+      this.pageIndex = 0;
+    }
+
+    this.update = false;
+
+    // this.store$.dispatch(
+    //   loadAll({
+    //     payload: {
+    //       pageIndex: 0,
+    //       pageSize: this.pageSize
+    //     }
+    //   })
+    // );
+
+    this.service
+      .getAll({
+        pageIndex: this.pageIndex++,
+        pageSize: this.pageSize
+      })
+      .subscribe(data => {
+        this.update = true;
+        this.pageCount = data.pagination.pageCount;
+        if (reset) {
+          this.topSongList = [];
+        }
+        this.topSongList = [...this.topSongList, ...(data.array as Song[])];
+
+        this.store$.dispatch(
+          loadAllSuccess({
+            payload: {
+              array: this.topSongList
+            }
+          })
+        );
+      });
   }
 
   pullingUp(): void {
-    this.update = false;
-    setTimeout(() => {
-      this.topSongList.push({
-        id: 1,
-        picUrl: '',
-        name: '撒的发' + this.i,
-        singer: '撒的发' + this.i,
-        durationTime: 86846
-      });
-      this.i++;
-      this.update = true;
+    if (this.pageIndex >= this.pageCount) {
+      this.pullUpLoad = false;
+      return;
+    }
+    this.getSongs();
 
-      if (this.i === 5) {
-        this.pullUpLoad = false;
-      }
-      console.log('sssssssssssss');
-    }, 1000);
+    // this.update = false;
+    // setTimeout(() => {
+    //   this.topSongList.push({
+    //     id: 1,
+    //     picUrl: '',
+    //     name: '撒的发' + this.i,
+    //     singer: '撒的发' + this.i,
+    //     durationTime: 86846
+    //   });
+    //   this.i++;
+    //   this.update = true;
+
+    //   if (this.i === 5) {
+    //     this.pullUpLoad = false;
+    //   }
+    //   console.log('sssssssssssss');
+    // }, 1000);
   }
 
   pullingDown(): void {
-    this.update = false;
-    setTimeout(() => {
-      this.topSongList = [];
-      this.topSongList = this.topSongListInit;
-      this.update = true;
-      console.log('rrrrrrrrrrrrrrr');
-    }, 3000);
+    this.getSongs(true);
+
+    // this.update = false;
+    // setTimeout(() => {
+    //   this.topSongList = [];
+    //   this.topSongList = this.topSongListInit;
+    //   this.update = true;
+    //   console.log('rrrrrrrrrrrrrrr');
+    // }, 3000);
+  }
+
+  handleSelectSong(song: Song) {
+    this.store$.dispatch(
+      select({
+        payload: song.id
+      })
+    );
+    this.router.navigate(['/player']);
   }
 }

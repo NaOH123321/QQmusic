@@ -5,8 +5,8 @@ import { SharedModule } from '../shared/shared.module';
 // import { LoggingInterceptor } from '../shared/logging-interceptor';
 import { AppRoutingModule } from '../app-routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-// import { AppStoreModule } from '../reducers/index';
-// import { AppEffectsModule } from '../effects';
+import { AppStoreModule } from '../store';
+import { AppEffectsModule } from '../store/effects';
 import { NZ_I18N, zh_CN } from 'ng-zorro-antd';
 import 'hammerjs';
 
@@ -27,9 +27,9 @@ registerLocaleData(localeZh);
     HttpClientModule,
     SharedModule,
     AppRoutingModule,
-    BrowserAnimationsModule
-    // AppStoreModule,
-    // AppEffectsModule
+    BrowserAnimationsModule,
+    AppStoreModule,
+    AppEffectsModule
   ],
   exports: [AppRoutingModule],
   providers: [

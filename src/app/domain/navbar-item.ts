@@ -1,5 +1,5 @@
 export interface NavBarItem {
   text: string;
-  routerLink: string;
+  link: string;
   id: number;
 }

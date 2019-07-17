@@ -1,0 +1,12 @@
+@baseUrl = http://localhost:5000/api
+
+GET {{baseUrl}}/songs?pageIndex=4&pageSize=5 HTTP/1.1
+
+###
+@url = https://qqmusicapi.azurewebsites.net/api
+
+GET {{url}}/songs?pageIndex=4&pageSize=5 HTTP/1.1
+
+
+###
+GET {{url}}/songs/search?keywords=铃声  HTTP/1.1
