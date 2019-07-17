@@ -4,23 +4,28 @@ import { Routes, RouterModule } from '@angular/router';
 const routes: Routes = [
   {
     path: '',
-    redirectTo: '/rank',
+    redirectTo: 'home',
     pathMatch: 'full'
   },
+  // {
+  //   path: 'rank',
+  //   pathMatch: 'full',
+  //   loadChildren: () => import('./rank/rank.module').then(m => m.RankModule)
+  // },
+  // {
+  //   path: 'hot',
+  //   loadChildren: () => import('./hot/hot.module').then(m => m.HotModule)
+  // },
+  // {
+  //   path: 'search',
+  //   pathMatch: 'full',
+  //   loadChildren: () =>
+  //     import('./search/search.module').then(m => m.SearchModule)
+  // },
   {
-    path: 'rank',
-    pathMatch: 'full',
-    loadChildren: () => import('./rank/rank.module').then(m => m.RankModule)
-  },
-  {
-    path: 'hot',
-    loadChildren: () => import('./hot/hot.module').then(m => m.HotModule)
-  },
-  {
-    path: 'search',
-    pathMatch: 'full',
+    path: 'home',
     loadChildren: () =>
-      import('./search/search.module').then(m => m.SearchModule)
+      import('./home/home.module').then(m => m.HomeModule)
   },
   {
     path: 'player',

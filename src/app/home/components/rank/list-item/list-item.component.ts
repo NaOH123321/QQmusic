@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { Song, Singer } from '../../domain';
+import { Song, Singer } from '../../../../domain';
 
 @Component({
   selector: 'app-list-item',

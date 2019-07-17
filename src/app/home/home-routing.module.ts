@@ -1,6 +1,9 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { HomeContainerComponent } from './components';
+import { TopListComponent } from './components/rank';
+import { HotListComponent } from './components/hot/hot-list/hot-list.component';
+import { SearchListComponent } from './components/search/search-list/search-list.component';
 
 const routes: Routes = [
   {
@@ -12,18 +15,18 @@ const routes: Routes = [
         redirectTo: 'hot',
         pathMatch: 'full'
       },
-    //   {
-    //     path: 'hot',
-    //     component: HomeDetailComponent
-    //   },
-    //   {
-    //     path: 'rank',
-    //     component: HomeDetailComponent
-    //   },
-    //   {
-    //     path: ':tabLink',
-    //     component: HomeDetailComponent
-    //   }
+      {
+        path: 'hot',
+        component: HotListComponent
+      },
+      {
+        path: 'rank',
+        component: TopListComponent
+      },
+      {
+        path: 'search',
+        component: SearchListComponent
+      },
     ]
   }
 ];

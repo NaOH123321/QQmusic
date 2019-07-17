@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { NavBarItem } from '../../../domain';
 import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
 import { filter, map } from 'rxjs/operators';
@@ -28,24 +28,25 @@ export class NavbarComponent implements OnInit {
       id: 2
     }
   ];
+
+  @Input()
+  selectedTab = 1;
+
+@Output()
+tabSelected =  new EventEmitter<NavBarItem>();
+
   // selected = 1;
   selected$: Observable<number>;
   constructor(private router: Router) {}
 
   ngOnInit(): void {
-    this.selected$ = this.router.events.pipe(
-      filter(ev => ev instanceof NavigationEnd),
-      map((ev: NavigationEnd) => ev.url.split('/')),
-      debug('yyyyyyyyyyyyyyyyyyyyy'),
-      map(arr => arr[1]),
-      map(path => {
-        const item = this.items.find(i => i.link === path);
-        return item.id;
-      })
-    );
+    console.log(this.selectedTab);
   }
 
   handleNavigate(item: NavBarItem) {
-    this.router.navigate([item.link]);
+
+    this.tabSelected.emit(item);
+
+    // this.router.navigate(['home', item.link]);
   }
 }

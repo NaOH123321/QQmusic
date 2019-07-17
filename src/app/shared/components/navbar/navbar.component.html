@@ -2,7 +2,7 @@
   <li *ngFor="let item of items; let i = index">
     <a
       (click)="handleNavigate(item)"
-      [ngClass]="{ active: i === (selected$ | async) }"
+      [ngClass]="{ 'active': i === selectedTab}"
     >
       <span>{{ item.text }}</span>
     </a>

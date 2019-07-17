@@ -18,6 +18,7 @@ import { interval, Observable, Subscription } from 'rxjs';
 import { Song, Singer } from '../domain';
 import { debug } from '../utils/debug.util';
 import { Router } from '@angular/router';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-player',
@@ -53,7 +54,7 @@ export class PlayerComponent implements OnInit, AfterViewInit {
   currentTime = 0; // 单位是秒
   // visiable = true;
   status = 'pause';
-  constructor(private store$: Store<fromRoot.State>, private router: Router) {}
+  constructor(private store$: Store<fromRoot.State>, private router: Router, private location:Location) {}
 
   getSingers(singers: Singer[]): string {
     return singers.map(s => s.name).join('/');
@@ -136,7 +137,8 @@ export class PlayerComponent implements OnInit, AfterViewInit {
 
   handlerClosePlayer() {
     // this.visiable = false;
-    this.router.navigate(['/rank']);
+    this.location.back();
+    // this.router.navigate(['/rank']);
   }
 
   handlerPlay() {

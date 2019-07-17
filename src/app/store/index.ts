@@ -45,7 +45,7 @@ export const metaReducers: MetaReducer<
       }
     }),
     // StoreModule.forRoot(reducers, { metaReducers }),
-    StoreRouterConnectingModule.forRoot(),
+    // StoreRouterConnectingModule.forRoot(),
     !environment.production
       ? StoreDevtoolsModule.instrument({ maxAge: 50 })
       : []
