@@ -10,3 +10,6 @@ GET {{url}}/songs?pageIndex=0 HTTP/1.1
 
 ###
 GET {{url}}/songs/search?keywords=铃声  HTTP/1.1
+
+###
+GET https://qqmusicapi.chinacloudsites.cn/api/songs?pageIndex=0&pageSize=10 HTTP/1.1
