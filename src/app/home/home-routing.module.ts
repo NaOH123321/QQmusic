@@ -1,9 +1,11 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { HomeContainerComponent } from './components';
-import { TopListComponent } from './components/rank';
-import { HotListComponent } from './components/hot/hot-list/hot-list.component';
-import { SearchListComponent } from './components/search/search-list/search-list.component';
+import {
+  HomeContainerComponent,
+  HotContainerComponent,
+  RankContainerComponent,
+  SearchContainerComponent
+} from './components';
 
 const routes: Routes = [
   {
@@ -17,16 +19,16 @@ const routes: Routes = [
       },
       {
         path: 'hot',
-        component: HotListComponent
+        component: HotContainerComponent
       },
       {
         path: 'rank',
-        component: TopListComponent
+        component: RankContainerComponent
       },
       {
         path: 'search',
-        component: SearchListComponent
-      },
+        component: SearchContainerComponent
+      }
     ]
   }
 ];

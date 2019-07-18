@@ -30,23 +30,19 @@ export class NavbarComponent implements OnInit {
   ];
 
   @Input()
-  selectedTab = 1;
+  selectedIndex = 1;
 
-@Output()
-tabSelected =  new EventEmitter<NavBarItem>();
+  @Output()
+  tabSelected = new EventEmitter<NavBarItem>();
 
-  // selected = 1;
   selected$: Observable<number>;
   constructor(private router: Router) {}
 
   ngOnInit(): void {
-    console.log(this.selectedTab);
+    console.log(this.selectedIndex);
   }
 
   handleNavigate(item: NavBarItem) {
-
     this.tabSelected.emit(item);
-
-    // this.router.navigate(['home', item.link]);
   }
 }

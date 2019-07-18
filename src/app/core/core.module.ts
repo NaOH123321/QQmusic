@@ -34,7 +34,7 @@ registerLocaleData(localeZh);
   exports: [AppRoutingModule],
   providers: [
     { provide: NZ_I18N, useValue: zh_CN },
-    { provide: LocationStrategy, useClass: HashLocationStrategy },
+    // { provide: LocationStrategy, useClass: HashLocationStrategy },
     {
       provide: 'BASE_CONFIG',
       useValue: {

@@ -1,9 +1,6 @@
 <ul class="function_button">
   <li *ngFor="let item of items; let i = index">
-    <a
-      (click)="handleNavigate(item)"
-      [ngClass]="{ 'active': i === selectedTab}"
-    >
+    <a (click)="handleNavigate(item)" [ngClass]="{ active: i === selectedIndex }">
       <span>{{ item.text }}</span>
     </a>
   </li>

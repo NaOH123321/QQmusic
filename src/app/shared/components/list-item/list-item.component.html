@@ -1,4 +1,8 @@
-<div class="big_card_box" (tap)="onSelectSong()">
+<div
+  class="big_card_box"
+  (tap)="onSelectSong()"
+  [ngStyle]="{ 'box-shadow': itemDisplayStyle }"
+>
   <div class="image_box">
     <img [src]="topSongListItem.albumPic" />
   </div>

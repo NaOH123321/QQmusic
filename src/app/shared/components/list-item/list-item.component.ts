@@ -1,5 +1,14 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { Song, Singer } from '../../../../domain';
+import {
+  Component,
+  OnInit,
+  Input,
+  Output,
+  EventEmitter,
+  HostListener,
+  HostBinding
+} from '@angular/core';
+import { Song, Singer } from '../../../domain';
+import { cardAnim } from 'src/app/anim';
 
 @Component({
   selector: 'app-list-item',
@@ -13,10 +22,13 @@ export class ListItemComponent implements OnInit {
   @Output()
   selectSong = new EventEmitter<Song>();
 
+  itemDisplayStyle = '1px 1px 1px 1px #f3f3f3';
   constructor() {}
 
   ngOnInit() {
-    // console.log(this.topSongListItem);
+    if (this.topSongListItem.playInfo.vkey === '') {
+      this.itemDisplayStyle = '0px #f3f3f3';
+    }
   }
 
   onSelectSong() {

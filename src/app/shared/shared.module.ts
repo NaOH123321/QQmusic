@@ -3,17 +3,25 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgZorroAntdModule } from 'ng-zorro-antd';
-import { ScrollComponent, NavbarComponent } from './components';
-import { PipesModule } from '../pipes/pipes.module';
+import {
+  ScrollComponent,
+  NavbarComponent,
+  ListItemComponent
+} from './components';
+import { FormatDatePipe } from './pipes';
 
 @NgModule({
-  declarations: [ScrollComponent, NavbarComponent],
+  declarations: [
+    FormatDatePipe,
+    ScrollComponent,
+    NavbarComponent,
+    ListItemComponent
+  ],
   imports: [
     CommonModule,
     RouterModule,
     FormsModule,
     ReactiveFormsModule,
-    PipesModule,
     NgZorroAntdModule
   ],
   exports: [
@@ -21,11 +29,13 @@ import { PipesModule } from '../pipes/pipes.module';
     RouterModule,
     FormsModule,
     ReactiveFormsModule,
-    PipesModule,
     NgZorroAntdModule,
 
     ScrollComponent,
-    NavbarComponent
+    NavbarComponent,
+    ListItemComponent,
+
+    FormatDatePipe
   ],
   entryComponents: []
 })

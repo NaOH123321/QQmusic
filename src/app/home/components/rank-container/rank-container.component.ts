@@ -1,17 +1,17 @@
 import { Component, OnInit } from '@angular/core';
-import { Song } from '../../../../domain';
-import { SongService } from '../../../../services/song.service';
+import { Song } from '../../../domain';
+import { SongService } from '../../../services/song.service';
 import { Store } from '@ngrx/store';
-import * as fromRoot from '../../../../store/reducers';
-import { loadAll, select, loadAllSuccess } from '../../../..//store/actions';
+import * as fromRoot from '../../../store/reducers';
+import { loadAll, select, loadAllSuccess } from '../../../store/actions';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-top-list',
-  templateUrl: './top-list.component.html',
-  styleUrls: ['./top-list.component.scss']
+  selector: 'app-rank-container',
+  templateUrl: './rank-container.component.html',
+  styleUrls: ['./rank-container.component.scss']
 })
-export class TopListComponent implements OnInit {
+export class RankContainerComponent implements OnInit {
   constructor(
     private router: Router,
     private service: SongService,
@@ -55,7 +55,7 @@ export class TopListComponent implements OnInit {
       })
       .subscribe(data => {
         this.update = true;
-        // this.pageCount = data.pagination.pageCount;
+        this.pageCount = data.pagination.pageCount;
         if (reset) {
           this.topSongList = [];
         }
