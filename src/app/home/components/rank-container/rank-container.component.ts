@@ -98,6 +98,7 @@ export class RankContainerComponent implements OnInit {
   }
 
   pullingDown(): void {
+    this.pullUpLoad = true;
     this.getSongs(true);
 
     // this.update = false;

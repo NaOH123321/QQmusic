@@ -6,7 +6,8 @@ import {
   HomeContainerComponent,
   RankContainerComponent,
   SearchContainerComponent,
-  HotContainerComponent
+  HotContainerComponent,
+  SearchInputComponent
 } from './components';
 
 @NgModule({
@@ -14,7 +15,8 @@ import {
     HomeContainerComponent,
     SearchContainerComponent,
     HotContainerComponent,
-    RankContainerComponent
+    RankContainerComponent,
+    SearchInputComponent
   ],
   providers: [],
   imports: [SharedModule, HomeRoutingModule]

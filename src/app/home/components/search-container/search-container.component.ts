@@ -13,7 +13,7 @@ import { loadAllSuccess, select } from 'src/app/store/actions';
 })
 export class SearchContainerComponent implements OnInit {
   update = false;
-  pullUpLoad = false;
+  pullUpLoad = true;
 
   songList: Song[] = [];
 
@@ -21,6 +21,7 @@ export class SearchContainerComponent implements OnInit {
   pageSize = 10;
   pageCount = 1;
 
+  keywords = '周杰伦';
   constructor(
     private router: Router,
     private service: SongService,
@@ -29,21 +30,24 @@ export class SearchContainerComponent implements OnInit {
 
   ngOnInit() {}
 
-  search() {
-    this.getSongs(true);
-    this.pullUpLoad = true;
+  search(value: string) {
+    console.log(value);
+    if (value != null) {
+      this.keywords = value;
+      this.pullUpLoad = true;
+      this.getSongs(true);
+    }
   }
 
   getSongs(reset: boolean = false) {
     if (reset) {
       this.pageIndex = 0;
     }
-
     this.update = false;
     this.service
       .getAllBySearch({
         pageIndex: this.pageIndex++,
-        keywords: '周杰伦'
+        keywords: this.keywords
       })
       .subscribe(data => {
         this.update = true;

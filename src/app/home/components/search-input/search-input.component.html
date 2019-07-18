@@ -1,0 +1,31 @@
+<!-- <form action="" id="myform">
+  <input
+    type="search"
+    id="input"
+    value=""
+    placeholder="快速搜索"
+    results="5"
+    (click)="handleClick($event)"
+  />
+</form> -->
+
+<!-- <div class="container">
+  <form action="" class="parent">
+    <input type="text" class="search" placeholder="搜索" />
+    <input type="button" name="" id="" class="btn" />
+  </form>
+</div> -->
+
+<nz-input-group nzSearch [nzAddOnAfter]="suffixIconButton">
+  <input
+    type="text"
+    nz-input
+    placeholder="input search text"
+    [(ngModel)]="value"
+  />
+</nz-input-group>
+<ng-template #suffixIconButton>
+  <button nz-button nzType="primary" nzSearch (click)="handleClick($event)">
+    <i nz-icon nzType="search"></i>
+  </button>
+</ng-template>

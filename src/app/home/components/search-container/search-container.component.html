@@ -1,4 +1,4 @@
-<div class="search_box">
+<!-- <div class="search_box">
   <div class="search">
     <div class="icon_search"></div>
     <form action="javascript:return true">
@@ -7,7 +7,7 @@
     <span class="icon_delete">删除</span>
   </div>
   <div class="cancel">取消</div>
-</div>
+</div> -->
 <!-- <form action="" id="myform">
   <input type="search" id="input" value="" placeholder="快速搜索" results="5" />
   </form> -->
@@ -22,21 +22,29 @@
   <input type="text" nz-input placeholder="input search text" />
 </nz-input-group> -->
 
-<div class="container-scroll">
-  <app-scroll
-    [pullUpLoad]="pullUpLoad"
-    [update]="update"
-    (pullingUp)="pullingUp()"
-  >
-    <div [ngStyle]="{ 'padding-bottom': miniPlayer ? '3.4rem' : 0 }">
-      <div class="content_box">
-        <ng-container *ngFor="let item of songList; let i = index">
-          <app-list-item
-            [topSongListItem]="item"
-            (selectSong)="handleSelectSong($event)"
-          ></app-list-item>
-        </ng-container>
+<!-- <input type="text" [(ngModel)]="value" >
+<button (tap)="search()">ggggggggggggg </button> -->
+<div class="search_box">
+  <div style="width: 80%; z-index: 100;">
+    <app-search-input (search)="search($event)"></app-search-input>
+  </div>
+
+  <div class="container-scroll">
+    <app-scroll
+      [pullUpLoad]="pullUpLoad"
+      [update]="update"
+      (pullingUp)="pullingUp()"
+    >
+      <div [ngStyle]="{ 'padding-bottom': miniPlayer ? '3.4rem' : 0 }">
+        <div class="content_box">
+          <ng-container *ngFor="let item of songList; let i = index">
+            <app-list-item
+              [topSongListItem]="item"
+              (selectSong)="handleSelectSong($event)"
+            ></app-list-item>
+          </ng-container>
+        </div>
       </div>
-    </div>
-  </app-scroll>
+    </app-scroll>
+  </div>
 </div>
