@@ -46,7 +46,7 @@ export class PlayerComponent implements OnInit, AfterViewInit {
   //   playInfo: null
   // };
 
-  sda = `http://ws.stream.qqmusic.qq.com/C400000KKcHK4ZYcDo.m4a?fromtag=0&guid=876576457&vkey=35F71C1CFA658235CD4D6BE1BE388CB7B687027B60D7E318E5FDC211D5F11B504F53EDAC8F85AFADE166D6E76D709EF1AA4B8DA55A413EDE`;
+  sda = ``;
 
   // currentLineWidth = 0;
 
@@ -70,7 +70,6 @@ export class PlayerComponent implements OnInit, AfterViewInit {
     this.song$.subscribe(val => {
       if (val) {
         this.sda = val.playInfo.url;
-        console.log(val);
         console.log(this.sda);
       }
     });

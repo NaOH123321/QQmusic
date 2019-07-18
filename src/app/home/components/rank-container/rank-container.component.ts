@@ -1,9 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { Song } from '../../../domain';
 import { SongService } from '../../../services/song.service';
-import { Store } from '@ngrx/store';
+import { Store, select } from '@ngrx/store';
 import * as fromRoot from '../../../store/reducers';
-import { loadAll, select, loadAllSuccess } from '../../../store/actions';
+import {
+  loadAll,
+  selectSong,
+  loadAllSuccess,
+  addAll,
+  LoadingShow
+} from '../../../store/actions';
 import { Router } from '@angular/router';
 
 @Component({
@@ -12,6 +18,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./rank-container.component.scss']
 })
 export class RankContainerComponent implements OnInit {
+  miniPlayer=false;
   constructor(
     private router: Router,
     private service: SongService,
@@ -30,7 +37,74 @@ export class RankContainerComponent implements OnInit {
 
   ngOnInit() {
     this.getSongs(true);
+
+    // this.store$.pipe(select(fromRoot.getLoading)).subscribe(loading => {
+    //   console.log(loading)
+    //   this.update = loading;
+    // });
+
+    // this.store$.pipe(select(fromRoot.getSongAll)).subscribe(songs => {
+    //   if (songs) {
+    //     this.topSongList = songs;
+    //   }
+    // });
+
+    // this.store$.pipe(select(fromRoot.getPagination)).subscribe(pagination => {
+    //   if (pagination) {
+    //     this.pageCount = pagination.pageCount;
+    //   }
+    // });
   }
+
+  // getSongs(reset: boolean = false) {
+  //   this.store$.dispatch(LoadingShow());
+
+  //   if (reset) {
+  //     this.pageIndex = 0;
+
+  //     this.store$.dispatch(
+  //       loadAll({
+  //         payload: {
+  //           pageIndex: this.pageIndex,
+  //           pageSize: this.pageSize
+  //         }
+  //       })
+  //     );
+  //   }
+
+  //   // this.update = false;
+
+  //   this.store$.dispatch(
+  //     addAll({
+  //       payload: {
+  //         pageIndex: 0,
+  //         pageSize: this.pageSize
+  //       }
+  //     })
+  //   );
+
+  //   // this.service
+  //   //   .getAll({
+  //   //     pageIndex: this.pageIndex++,
+  //   //     pageSize: this.pageSize
+  //   //   })
+  //   //   .subscribe(data => {
+  //   //     this.update = true;
+  //   //     this.pageCount = data.pagination.pageCount;
+  //   //     if (reset) {
+  //   //       this.topSongList = [];
+  //   //     }
+  //   //     this.topSongList = [...this.topSongList, ...(data.array as Song[])];
+
+  //   //     this.store$.dispatch(
+  //   //       loadAllSuccess({
+  //   //         payload: {
+  //   //           array: this.topSongList
+  //   //         }
+  //   //       })
+  //   //     );
+  //   //   });
+  // }
 
   getSongs(reset: boolean = false) {
     if (reset) {
@@ -38,16 +112,6 @@ export class RankContainerComponent implements OnInit {
     }
 
     this.update = false;
-
-    // this.store$.dispatch(
-    //   loadAll({
-    //     payload: {
-    //       pageIndex: 0,
-    //       pageSize: this.pageSize
-    //     }
-    //   })
-    // );
-
     this.service
       .getAll({
         pageIndex: this.pageIndex++,
@@ -113,7 +177,7 @@ export class RankContainerComponent implements OnInit {
   handleSelectSong(song: Song) {
     if (song.playInfo.vkey != null && song.playInfo.vkey !== '') {
       this.store$.dispatch(
-        select({
+        selectSong({
           payload: song.songId
         })
       );

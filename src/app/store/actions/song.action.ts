@@ -11,7 +11,17 @@ export const loadAllSuccess = createAction(
   props<{ payload: DataWithPagination }>()
 );
 
-export const select = createAction(
+export const addAll = createAction(
+  '[Songs] Songs Add All',
+  props<{ payload: QueryParameter }>()
+);
+
+export const addAllSuccess = createAction(
+  '[Songs] Songs Add All Success',
+  props<{ payload: DataWithPagination }>()
+);
+
+export const selectSong = createAction(
   '[Songs] Songs select',
   props<{ payload: string }>()
 );

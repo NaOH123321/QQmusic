@@ -1,7 +1,7 @@
 import { createReducer, on } from '@ngrx/store';
 import { EntityState, EntityAdapter, createEntityAdapter } from '@ngrx/entity';
 import { Song, Pagination } from '../../domain';
-import { loadAllSuccess, select } from '../actions';
+import { loadAllSuccess, addAllSuccess, selectSong } from '../actions';
 
 export interface State extends EntityState<Song> {
   selectedSongId: string | null;
@@ -33,7 +33,15 @@ export const reducer = createReducer(
     })
   ),
   on(
-    select,
+    addAllSuccess,
+    (state, { payload }): State => ({
+      ...adapter.addMany(payload.array, state),
+      pagination: payload.pagination,
+      selectedSongId: null
+    })
+  ),
+  on(
+    selectSong,
     (state, { payload }): State => ({ ...state, selectedSongId: payload })
   )
 );

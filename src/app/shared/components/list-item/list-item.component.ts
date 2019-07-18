@@ -22,6 +22,9 @@ export class ListItemComponent implements OnInit {
   @Output()
   selectSong = new EventEmitter<Song>();
 
+  @Input()
+  isShowRank = true;
+
   itemDisplayStyle = '1px 1px 1px 1px #f3f3f3';
   constructor() {}
 

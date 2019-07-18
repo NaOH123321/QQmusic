@@ -6,11 +6,18 @@ import {
   map,
   pluck,
   startWith,
-  switchMap
+  switchMap,
+  tap
 } from 'rxjs/operators';
 import { Actions, createEffect, Effect, ofType } from '@ngrx/effects';
 import { SongService } from '../../services/song.service';
-import { loadAll, loadAllSuccess } from '../actions';
+import {
+  loadAll,
+  loadAllSuccess,
+  addAll,
+  addAllSuccess,
+  LoadingHide
+} from '../actions';
 
 /**
  * Effects file is for isolating and managing side effects of the application in one place
@@ -22,7 +29,6 @@ export class SongEffects {
   loadAll$ = createEffect(() =>
     this.actions$.pipe(
       ofType(loadAll),
-      // startWith(loadAll()),
       map(action => action.payload),
       switchMap(parameter =>
         this.songService$
@@ -30,6 +36,17 @@ export class SongEffects {
           .pipe(map(val => loadAllSuccess({ payload: val })))
       )
     )
+  );
+
+  fail$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(addAllSuccess, loadAllSuccess),
+        tap(_ => {
+          LoadingHide();
+        })
+      ),
+    { dispatch: false }
   );
 
   //   load$ = createEffect( () => this.actions$.pipe(

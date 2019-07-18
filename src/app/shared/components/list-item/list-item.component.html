@@ -14,8 +14,10 @@
         topSongListItem.durationTime | formatDate
       }}</span>
     </p>
-    <div *ngIf="topSongListItem.rank < 4" class="top_number">
-      {{ topSongListItem.rank }}
-    </div>
+    <ng-container *ngIf="isShowRank">
+      <div *ngIf="topSongListItem.rank < 4" class="top_number">
+        {{ topSongListItem.rank }}
+      </div>
+    </ng-container>
   </div>
 </div>

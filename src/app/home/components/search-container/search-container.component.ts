@@ -4,7 +4,7 @@ import { SongService } from '../../../services/song.service';
 import { Store } from '@ngrx/store';
 import * as fromRoot from '../../../store/reducers';
 import { Router } from '@angular/router';
-import { loadAllSuccess, select } from 'src/app/store/actions';
+import { loadAllSuccess, selectSong } from 'src/app/store/actions';
 
 @Component({
   selector: 'app-search-container',
@@ -12,6 +12,10 @@ import { loadAllSuccess, select } from 'src/app/store/actions';
   styleUrls: ['./search-container.component.scss']
 })
 export class SearchContainerComponent implements OnInit {
+  miniPlayer=false;
+
+
+  isShowRank = false;
   update = false;
   pullUpLoad = true;
 
@@ -78,7 +82,7 @@ export class SearchContainerComponent implements OnInit {
   handleSelectSong(song: Song) {
     if (song.playInfo.vkey != null && song.playInfo.vkey !== '') {
       this.store$.dispatch(
-        select({
+        selectSong({
           payload: song.songId
         })
       );
